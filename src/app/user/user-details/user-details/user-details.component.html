@@ -1,0 +1,10 @@
+<div *ngIf="user$ | async as user">
+  {{user.name}} movies:
+
+  <ul *ngIf="movies$ | async as movies">
+    <li *ngFor="let movie of movies">
+      <h4>{{movie.title}}</h4>
+      <p>{{movie.description}}</p>
+    </li>
+  </ul>
+</div>
