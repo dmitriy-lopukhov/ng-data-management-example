@@ -1,4 +1,6 @@
-# DataManagementExample
+# Angular Dead Simple Data Management Example App
+
+This sample project shows how to work with the data management in angular applications with lazy modules as easily as possible. No third-party libraries, no NgRX, Akita, MobX, etc., only services + RxJS.
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.1.3.
 
