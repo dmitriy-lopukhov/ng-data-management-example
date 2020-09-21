@@ -13,7 +13,7 @@ export class UsersComponent {
   users$: Observable<IUser[]>;
 
   constructor(private userService: UserService) {
-    this.users$ = this.userService.state.pipe(map((state) => state.users));
+    this.users$ = this.userService.state$.pipe(map((state) => state.users));
 
     this.userService.loadUsers();
   }

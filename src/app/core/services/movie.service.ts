@@ -32,21 +32,22 @@ const testData: IMovie[] = [
   providedIn: "root",
 })
 export class MovieService {
-  public state = new BehaviorSubject<IMoviesState>(initialState);
+  private state = new BehaviorSubject<IMoviesState>(initialState);
+  public readonly state$ = this.state.asObservable();
 
   constructor() {}
 
-  private setState(state: IMoviesState) {
+  private setState(state: IMoviesState): void {
     this.state.next({ ...state });
   }
 
-  loadMovies() {
+  public loadMovies(): void {
     this.getMovies().subscribe((data) =>
       this.setState({ ...this.state.value, movies: data })
     );
   }
 
-  loadMoviesByUserId(id: number) {
+  public loadMoviesByUserId(id: number): void {
     this.getMoviesByUserId(id).subscribe((data) =>
       this.setState({ ...this.state.value, movies: data })
     );

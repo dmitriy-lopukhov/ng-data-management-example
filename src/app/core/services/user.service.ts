@@ -4,7 +4,7 @@ import { IUser } from "../models/user.model";
 
 interface IUsersState {
   users: IUser[];
-  currentUser: IUser;
+  currentUser: IUser | null;
 }
 
 const initialState: IUsersState = {
@@ -31,21 +31,22 @@ const testData: IUser[] = [
   providedIn: "root",
 })
 export class UserService {
-  public state = new BehaviorSubject<IUsersState>(initialState);
+  private state = new BehaviorSubject<IUsersState>(initialState);
+  public readonly state$ = this.state.asObservable();
 
   constructor() {}
 
-  private setState(state: IUsersState) {
+  private setState(state: IUsersState): void {
     this.state.next({ ...state });
   }
 
-  loadUsers() {
+  public loadUsers(): void {
     this.getUsers().subscribe((data) =>
       this.setState({ ...this.state.value, users: data })
     );
   }
 
-  loadUserById(id: number) {
+  public loadUserById(id: number): void {
     this.getUserById(id).subscribe((user) =>
       this.setState({ ...this.state.value, currentUser: user })
     );
@@ -55,7 +56,8 @@ export class UserService {
     return of(testData);
   }
 
-  private getUserById(id: number): Observable<IUser> {
-    return of(testData.find((i) => i.id === id));
+  private getUserById(id: number): Observable<IUser | null> {
+    const found = testData.find((i) => i.id === id);
+    return of(found ? found : null);
   }
 }
