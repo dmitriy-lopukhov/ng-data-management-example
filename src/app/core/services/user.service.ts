@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, of, Observable } from 'rxjs';
-import { IUser } from '../models/user.model';
+import { Injectable } from "@angular/core";
+import { BehaviorSubject, of, Observable } from "rxjs";
+import { IUser } from "../models/user.model";
 
 interface IUsersState {
   users: IUser[];
@@ -9,44 +9,46 @@ interface IUsersState {
 
 const initialState: IUsersState = {
   users: [],
-  currentUser: null
+  currentUser: null,
 };
 
 const testData: IUser[] = [
   {
     id: 1,
-    name: 'user 1',
+    name: "user 1",
   },
   {
     id: 2,
-    name: 'user 2',
+    name: "user 2",
   },
   {
     id: 3,
-    name: 'user 3',
+    name: "user 3",
   },
 ];
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class UserService {
   public state = new BehaviorSubject<IUsersState>(initialState);
 
-  constructor() { }
+  constructor() {}
 
   private setState(state: IUsersState) {
     this.state.next({ ...state });
   }
 
   loadUsers() {
-    this.getUsers()
-      .subscribe(data => this.setState({ ...this.state.value, users: data }));
+    this.getUsers().subscribe((data) =>
+      this.setState({ ...this.state.value, users: data })
+    );
   }
 
   loadUserById(id: number) {
-    this.getUserById(id)
-      .subscribe(user => this.setState({ ...this.state.value, currentUser: user }));
+    this.getUserById(id).subscribe((user) =>
+      this.setState({ ...this.state.value, currentUser: user })
+    );
   }
 
   private getUsers(): Observable<IUser[]> {
@@ -54,6 +56,6 @@ export class UserService {
   }
 
   private getUserById(id: number): Observable<IUser> {
-    return of(testData.find(i => i.id === id));
+    return of(testData.find((i) => i.id === id));
   }
 }
