@@ -1,6 +1,7 @@
 <app-movie-search class="search"></app-movie-search>
 <p class="total">Total: {{ total$ | async }}</p>
 <app-movie-card
+  @movieCardAnimate
   class="container"
   *ngFor="let movie of movies$ | async"
   [movie]="movie"
