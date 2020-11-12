@@ -1,1 +1,8 @@
-<p>movies works!</p>
+<app-movie-search class="search"></app-movie-search>
+<p class="total">Total: {{ total$ | async }}</p>
+<app-movie-card
+  class="container"
+  *ngFor="let movie of movies$ | async"
+  [movie]="movie"
+>
+</app-movie-card>

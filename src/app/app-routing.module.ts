@@ -3,16 +3,13 @@ import { Routes, RouterModule } from "@angular/router";
 
 const routes: Routes = [
   {
-    path: "users",
-    loadChildren: "./user/user.module#UserModule",
-  },
-  {
     path: "movies",
-    loadChildren: "./movie/movie.module#MovieModule",
+    loadChildren: () =>
+      import("./movie/movie.module").then((m) => m.MovieModule),
   },
   {
     path: "**",
-    redirectTo: "users",
+    redirectTo: "movies",
   },
 ];
 

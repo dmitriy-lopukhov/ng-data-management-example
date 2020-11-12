@@ -6,6 +6,16 @@ const routes: Routes = [
   {
     path: "",
     component: MoviesComponent,
+    // TODO: movie details
+    // children: [
+    //   {
+    //     path: "details/:id",
+    //     loadChildren: () =>
+    //       import("./movie-details/movie-details.module").then(
+    //         (m) => m.MovieDetailsModule
+    //       ),
+    //   },
+    // ],
   },
 ];
 

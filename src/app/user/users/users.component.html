@@ -1,7 +1,0 @@
-<ul *ngIf="users$ | async as users">
-  <li *ngFor="let user of users">
-    <a [routerLink]="['./details', user.id]">{{ user.name }}</a>
-  </li>
-</ul>
-<hr />
-<router-outlet></router-outlet>

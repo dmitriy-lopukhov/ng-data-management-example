@@ -1,0 +1,23 @@
+<ng-container *ngIf="movie">
+  <div
+    class="movie-header movie-background"
+    [style.background-image]="getImageUrl(movie)"
+  ></div>
+  <div class="movie-content">
+    <div class="movie-content-header">
+      <a href="#">
+        <h3 class="movie-title">{{ movie.name }}</h3>
+      </a>
+    </div>
+    <div class="movie-info">
+      <div class="info-section">
+        <label>Rating</label>
+        <span>{{ movie.rating.average }}</span>
+      </div>
+      <div class="info-section">
+        <label>Genres</label>
+        <span>{{ getGenres(movie.genres) }}</span>
+      </div>
+    </div>
+  </div>
+</ng-container>
