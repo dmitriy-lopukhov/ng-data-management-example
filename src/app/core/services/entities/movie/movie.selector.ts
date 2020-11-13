@@ -44,10 +44,13 @@ function getEndPosition(state: State<IMovie>): number | undefined {
 }
 
 function filterByQuery(i: IMovie, query: Query): boolean {
-  return !!(
+  return (
     i &&
-    i.name &&
     query !== undefined &&
-    i.name.toLowerCase().includes(query.toLowerCase())
+    (!!(i.name && i.name.toLowerCase().includes(query.toLowerCase())) ||
+      !!(
+        i.genres &&
+        i.genres.join(",").toLowerCase().includes(query.toLowerCase())
+      ))
   );
 }
