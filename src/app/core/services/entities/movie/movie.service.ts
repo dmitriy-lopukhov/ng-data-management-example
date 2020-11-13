@@ -14,9 +14,6 @@ export class MovieService extends EntityService<IMovie> {
   private filters = new BehaviorSubject<MovieFilters>({});
   private readonly filters$ = this.filters.asObservable();
   public readonly total$ = this.state$.pipe(map((state) => state.total));
-  public readonly end$ = this.state$.pipe(
-    map((state) => state.total === state.pageSize)
-  );
 
   public readonly moviesByPage$ = combineLatest([
     this.state$.pipe(map((state) => Object.values(state.entries))),
@@ -27,6 +24,10 @@ export class MovieService extends EntityService<IMovie> {
     withLatestFrom(this.state$),
     moviesByPage()
   );
+  public readonly end$ = combineLatest([
+    this.moviesByPage$,
+    this.state$.pipe(map((state) => state.total === state.pageSize)),
+  ]).pipe(map(([movies, end]) => !movies.length || end));
 
   constructor(private httpClient: HttpClient) {
     super();
