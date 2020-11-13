@@ -31,12 +31,18 @@ import { Observable } from "rxjs";
 export class MoviesComponent implements OnInit {
   movies$: Observable<IMovie[]>;
   total$: Observable<number>;
+  end$: Observable<boolean>;
 
   constructor(private movieService: MovieService) {
     this.movieService.loadMovies();
     this.movies$ = this.movieService.moviesByPage$;
     this.total$ = this.movieService.total$;
+    this.end$ = this.movieService.end$;
   }
 
   ngOnInit(): void {}
+
+  loadMore(): void {
+    this.movieService.loadMore();
+  }
 }

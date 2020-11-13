@@ -1,19 +1,18 @@
+@import "mixins";
+
 .search-container {
   width: 250px;
   display: flex;
 
   input {
-    box-shadow: 0px 6px 18px rgba(0, 0, 0, 0.1);
+    @include shadowPadding;
     background-color: #fff;
     border: 1px solid transparent;
-    border-radius: 10px;
     color: inherit;
     font-size: 1.1em;
     outline: 0;
     width: 100%;
     margin: 0.5em 0;
-    padding: 0.7em 0.7em 0.7em 1.2em;
-    transition: 300ms;
 
     &:hover,
     &:focus,

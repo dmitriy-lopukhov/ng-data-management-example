@@ -1,4 +1,5 @@
 import { BehaviorSubject } from "rxjs";
+import { defaultPage, defaultPageSize } from "./state.constants";
 import { State, WithID } from "./state.types";
 
 export abstract class EntityService<T> {
@@ -8,8 +9,8 @@ export abstract class EntityService<T> {
     total: 0,
     loaded: false,
     loading: false,
-    page: 1,
-    pageSize: 10,
+    page: defaultPage,
+    pageSize: defaultPageSize,
   };
   private state = new BehaviorSubject<State<T>>(this.initialState);
   protected readonly state$ = this.state.asObservable();
@@ -18,10 +19,6 @@ export abstract class EntityService<T> {
     if (this.inputState) {
       this.initialState = this.inputState;
     }
-  }
-
-  protected setLoading(loading: boolean): void {
-    this.state.next({ ...this.getState(), loading });
   }
 
   protected setEntries(entries: WithID<T>[]): void {
@@ -39,7 +36,7 @@ export abstract class EntityService<T> {
         loading: false,
       }
     );
-    this.state.next(newState);
+    this.setState(newState);
   }
 
   protected setEntry(entry: T & { id: number }): void {
@@ -51,7 +48,7 @@ export abstract class EntityService<T> {
       entries,
       ids,
     };
-    this.state.next(newState);
+    this.setState(newState);
   }
 
   protected removeEntry(entry: T & { id: number }): void {
@@ -67,10 +64,16 @@ export abstract class EntityService<T> {
       entries,
       ids,
     };
-    this.state.next(newState);
+    this.setState(newState);
   }
 
   protected getState(): State<T> {
     return this.state.getValue();
+  }
+  protected setState(state: State<T>): void {
+    this.state.next(state);
+  }
+  protected patchState(state: Partial<State<T>>): void {
+    this.state.next({ ...this.getState(), ...state });
   }
 }

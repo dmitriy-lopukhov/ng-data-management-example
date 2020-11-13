@@ -1,0 +1,10 @@
+@mixin shadow() {
+  box-shadow: 0px 6px 18px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  transition: 300ms;
+}
+
+@mixin shadowPadding() {
+  @include shadow;
+  padding: 0.7em 0.7em 0.7em 1.2em;
+}
