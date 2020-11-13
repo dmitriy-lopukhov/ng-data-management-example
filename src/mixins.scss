@@ -8,3 +8,18 @@
   @include shadow;
   padding: 0.7em 0.7em 0.7em 1.2em;
 }
+
+@mixin btn {
+  @include shadowPadding();
+  background-color: #fff;
+  border: 1px solid transparent;
+  color: inherit;
+  font-size: 1.1em;
+  outline: 0;
+  margin: 0.5em 0;
+  cursor: pointer;
+  &:hover {
+    background-color: #299245;
+    color: #fff;
+  }
+}

@@ -8,6 +8,13 @@ const routes: Routes = [
       import("./movie/movie.module").then((m) => m.MovieModule),
   },
   {
+    path: "movies/:id",
+    loadChildren: () =>
+      import("./movie/movie-details/movie-details.module").then(
+        (m) => m.MovieDetailsModule
+      ),
+  },
+  {
     path: "**",
     redirectTo: "movies",
   },

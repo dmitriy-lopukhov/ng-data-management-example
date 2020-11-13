@@ -1,7 +1,15 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, combineLatest, Observable, of } from "rxjs";
-import { debounceTime, map, withLatestFrom } from "rxjs/operators";
+import {
+  debounceTime,
+  distinctUntilChanged,
+  filter,
+  map,
+  switchMap,
+  tap,
+  withLatestFrom,
+} from "rxjs/operators";
 import { EntityService } from "../../state/entity.service";
 import { defaultPage, defaultPageSize } from "../../state/state.constants";
 import { IMovie, MovieFilters } from "./movie.model";
@@ -13,7 +21,13 @@ import { filterMovies, moviesByPage } from "./movie.selector";
 export class MovieService extends EntityService<IMovie> {
   private filters = new BehaviorSubject<MovieFilters>({});
   private readonly filters$ = this.filters.asObservable();
+  private currentMovieId = new BehaviorSubject<number | null>(null);
+  private readonly currentMovieId$ = this.currentMovieId.asObservable();
   public readonly total$ = this.state$.pipe(map((state) => state.total));
+  public readonly loaded$ = this.state$.pipe(
+    map((state) => state.loaded),
+    distinctUntilChanged()
+  );
 
   public readonly moviesByPage$ = combineLatest([
     this.state$.pipe(map((state) => Object.values(state.entries))),
@@ -28,6 +42,22 @@ export class MovieService extends EntityService<IMovie> {
     this.moviesByPage$,
     this.state$.pipe(map((state) => state.total === state.pageSize)),
   ]).pipe(map(([movies, end]) => !movies.length || end));
+
+  public readonly currentMovie$ = combineLatest([
+    this.currentMovieId$,
+    this.state$,
+  ]).pipe(
+    filter(([id]) => !!id),
+    distinctUntilChanged(([id1], [id2]) => id1 === id2),
+    switchMap(([id, state]) => {
+      if (id) {
+        return state.entries[id]
+          ? of(state.entries[id])
+          : this.getMoviesById(id);
+      }
+      return of(null);
+    })
+  );
 
   constructor(private httpClient: HttpClient) {
     super();
@@ -58,14 +88,6 @@ export class MovieService extends EntityService<IMovie> {
     });
   }
 
-  public loadMoviesByUserId(id: number): void {
-    this.getMoviesByUserId(id).subscribe((item) => {
-      if (item) {
-        this.setEntry(item);
-      }
-    });
-  }
-
   public setFilters(filters: MovieFilters): void {
     const newState = { ...this.filters.getValue(), ...filters };
     this.filters.next(newState);
@@ -76,8 +98,13 @@ export class MovieService extends EntityService<IMovie> {
     return this.httpClient.get<IMovie[]>("http://api.tvmaze.com/shows");
   }
 
-  private getMoviesByUserId(id: number): Observable<IMovie | null> {
-    // TODO: continue there
-    return of(null);
+  public setCurrentMovieId(id: number): void {
+    this.currentMovieId.next(id);
+  }
+
+  private getMoviesById(id: number): Observable<IMovie> {
+    return this.httpClient
+      .get<IMovie>(`http://api.tvmaze.com/shows/${id}`)
+      .pipe(tap((movie) => this.setEntry(movie)));
   }
 }

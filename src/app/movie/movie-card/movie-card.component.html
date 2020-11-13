@@ -1,5 +1,6 @@
 <ng-container *ngIf="movie">
   <div
+    [routerLink]="['/movies', movie.id]"
     class="movie-header movie-background"
     [style.background-image]="getImageUrl(movie)"
   ></div>

@@ -5,6 +5,7 @@ import {
   OnInit,
 } from "@angular/core";
 import { IMovie } from "@app/core/services/entities/movie/movie.model";
+import { getGenres } from "../movie.utils";
 
 @Component({
   selector: "app-movie-card",
@@ -13,16 +14,14 @@ import { IMovie } from "@app/core/services/entities/movie/movie.model";
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MovieCardComponent implements OnInit {
-  @Input() movie: IMovie | null = null;
   constructor() {}
+  @Input() movie: IMovie | null = null;
+
+  getGenres = getGenres;
 
   ngOnInit(): void {}
 
   getImageUrl(movie: IMovie): string {
     return movie?.image?.medium ? `url(${movie.image.medium})` : "";
-  }
-
-  getGenres(genres: string[]): string {
-    return (genres && genres.join(", ")) || "-";
   }
 }

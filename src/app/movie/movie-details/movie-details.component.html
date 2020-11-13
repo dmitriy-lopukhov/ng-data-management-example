@@ -1,0 +1,23 @@
+<ng-container *ngIf="movie$ | async as movie">
+  <img class="movie-poster" [src]="movie.image.original" alt="poster" />
+  <div class="movie-content">
+    <div class="movie-title">
+      <span class="title">{{ movie.name }}</span>
+      <span class="movie-year">{{ movie.premiered | date }}</span>
+    </div>
+    <div class="movie-details">
+      <span class="movie-rating">{{ movie.status }}</span>
+      <span class="movie-duration">{{ movie.schedule.time }}</span>
+      <span class="movie-genre">{{ getGenres(movie.genres) }}</span>
+    </div>
+    <div class="movie-ratings">
+      <span class="star">★</span
+      ><span class="score">{{ movie.rating.average }}</span
+      ><span class="score-out-of">/ 10 (IMDB)</span>
+    </div>
+    <div class="movie-synopsis" [innerHtml]="movie.summary"></div>
+    <div class="movie-trailer">
+      <a routerLink="/movies" class="back-btn" type="button"> Back </a>
+    </div>
+  </div>
+</ng-container>

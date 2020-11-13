@@ -5,10 +5,11 @@ import {
   transition,
   trigger,
 } from "@angular/animations";
-import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
+import { ChangeDetectionStrategy, Component, OnDestroy } from "@angular/core";
 import { IMovie } from "@app/core/services/entities/movie/movie.model";
 import { MovieService } from "@app/core/services/entities/movie/movie.service";
-import { Observable } from "rxjs";
+import { Observable, Subject } from "rxjs";
+import { takeUntil } from "rxjs/operators";
 
 @Component({
   selector: "app-movies",
@@ -28,19 +29,28 @@ import { Observable } from "rxjs";
     ]),
   ],
 })
-export class MoviesComponent implements OnInit {
+export class MoviesComponent implements OnDestroy {
   movies$: Observable<IMovie[]>;
   total$: Observable<number>;
   end$: Observable<boolean>;
+  destroy$ = new Subject();
 
   constructor(private movieService: MovieService) {
-    this.movieService.loadMovies();
     this.movies$ = this.movieService.moviesByPage$;
     this.total$ = this.movieService.total$;
     this.end$ = this.movieService.end$;
+    this.movieService.loaded$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((loaded) => {
+        if (!loaded) {
+          this.movieService.loadMovies();
+        }
+      });
   }
 
-  ngOnInit(): void {}
+  ngOnDestroy(): void {
+    this.destroy$.next();
+  }
 
   loadMore(): void {
     this.movieService.loadMore();

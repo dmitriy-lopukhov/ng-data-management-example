@@ -1,0 +1,97 @@
+@import "mixins";
+
+:host {
+  margin: 40px 80px;
+  display: flex;
+  flex-wrap: wrap;
+
+  .movie-content {
+    flex: 1;
+  }
+
+  .movie-title {
+    font-size: 36px;
+    padding-bottom: 6px;
+    color: #333333;
+    .title {
+      margin-right: 12px;
+    }
+
+    .movie-year {
+      font-size: 16px;
+      white-space: nowrap;
+    }
+
+    a {
+      color: #333333;
+      text-decoration: none;
+
+      &:hover {
+        color: #858585;
+      }
+    }
+  }
+
+  .movie-details {
+    font-size: 12px;
+    padding-bottom: 24px;
+    margin-bottom: 12px;
+    border-bottom: 1px solid #dbdbdb;
+
+    > span {
+      margin-right: 20px;
+      border-right: 1px solid #dbdbdb;
+
+      &:last-child {
+        border: none;
+      }
+    }
+  }
+
+  .movie-synopsis {
+    margin: 24px 0px 60px;
+    padding-top: 24px;
+    border-top: 1px solid #dbdbdb;
+  }
+
+  .movie-ratings {
+    span.star {
+      display: inline-block;
+      margin-right: 12px;
+      color: #f0de00;
+      font-size: 36px;
+    }
+
+    span.score {
+      font-size: 30px;
+      color: #333333;
+    }
+  }
+
+  .movie-trailer {
+    a.back-btn {
+      @include btn;
+      position: relative;
+      padding-left: 2em;
+
+      &:before {
+        content: "⌜";
+        position: absolute;
+        left: 5px;
+        top: -2px;
+        transform: rotate(-45deg);
+        font-size: 20px;
+        padding: 12px;
+        font-weight: 700;
+      }
+    }
+  }
+
+  .movie-poster {
+    @include shadow;
+    width: 100%;
+    max-width: 360px;
+    margin-right: 80px;
+    margin-bottom: 40px;
+  }
+}
