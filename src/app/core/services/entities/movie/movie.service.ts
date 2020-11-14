@@ -95,7 +95,7 @@ export class MovieService extends EntityService<IMovie> {
   }
 
   private getMovies(): Observable<IMovie[]> {
-    return this.httpClient.get<IMovie[]>("http://api.tvmaze.com/shows");
+    return this.httpClient.get<IMovie[]>("https://api.tvmaze.com/shows");
   }
 
   public setCurrentMovieId(id: number): void {
@@ -104,7 +104,7 @@ export class MovieService extends EntityService<IMovie> {
 
   private getMoviesById(id: number): Observable<IMovie> {
     return this.httpClient
-      .get<IMovie>(`http://api.tvmaze.com/shows/${id}`)
+      .get<IMovie>(`https://api.tvmaze.com/shows/${id}`)
       .pipe(tap((movie) => this.setEntry(movie)));
   }
 }
