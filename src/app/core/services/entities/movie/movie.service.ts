@@ -94,6 +94,10 @@ export class MovieService extends EntityService<IMovie> {
     this.patchState({ page: defaultPage, pageSize: defaultPageSize });
   }
 
+  public getFilters(): MovieFilters {
+    return this.filters.getValue();
+  }
+
   private getMovies(): Observable<IMovie[]> {
     return this.httpClient.get<IMovie[]>("https://api.tvmaze.com/shows");
   }

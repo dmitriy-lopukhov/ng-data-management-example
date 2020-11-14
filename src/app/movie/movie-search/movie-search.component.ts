@@ -19,13 +19,19 @@ export class MovieSearchComponent implements OnDestroy {
   searchField = new FormControl("");
 
   constructor(private movieService: MovieService) {
+    const { query } = this.movieService.getFilters();
+    if (query) {
+      this.searchField.patchValue(query);
+    }
     this.searchField.valueChanges
       .pipe(
         debounceTime(200),
-        filter((query) => checkQuery(query)),
+        filter((searchQuery) => checkQuery(searchQuery)),
         takeUntil(this.destroy$)
       )
-      .subscribe((query) => this.movieService.setFilters({ query }));
+      .subscribe((searchQuery) =>
+        this.movieService.setFilters({ query: searchQuery })
+      );
   }
 
   ngOnDestroy(): void {
