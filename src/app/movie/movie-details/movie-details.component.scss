@@ -90,6 +90,7 @@
   .movie-poster {
     @include shadow;
     width: 100%;
+    height: 100%;
     max-width: 360px;
     margin-right: 80px;
     margin-bottom: 40px;
