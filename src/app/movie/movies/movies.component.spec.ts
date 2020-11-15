@@ -1,4 +1,6 @@
+import { HttpClientTestingModule } from "@angular/common/http/testing";
 import { ComponentFixture, TestBed, waitForAsync } from "@angular/core/testing";
+import { MovieService } from "@app/core/services/entities/movie/movie.service";
 
 import { MoviesComponent } from "./movies.component";
 
@@ -9,7 +11,9 @@ describe("MoviesComponent", () => {
   beforeEach(
     waitForAsync(() => {
       TestBed.configureTestingModule({
+        imports: [HttpClientTestingModule],
         declarations: [MoviesComponent],
+        providers: [MovieService],
       }).compileComponents();
     })
   );
