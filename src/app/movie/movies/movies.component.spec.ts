@@ -1,6 +1,8 @@
 import { HttpClientTestingModule } from "@angular/common/http/testing";
 import { ComponentFixture, TestBed, waitForAsync } from "@angular/core/testing";
+import { ReactiveFormsModule } from "@angular/forms";
 import { MovieService } from "@app/core/services/entities/movie/movie.service";
+import { MovieSearchComponent } from "../movie-search/movie-search.component";
 
 import { MoviesComponent } from "./movies.component";
 
@@ -11,8 +13,8 @@ describe("MoviesComponent", () => {
   beforeEach(
     waitForAsync(() => {
       TestBed.configureTestingModule({
-        imports: [HttpClientTestingModule],
-        declarations: [MoviesComponent],
+        imports: [HttpClientTestingModule, ReactiveFormsModule],
+        declarations: [MoviesComponent, MovieSearchComponent],
         providers: [MovieService],
       }).compileComponents();
     })
