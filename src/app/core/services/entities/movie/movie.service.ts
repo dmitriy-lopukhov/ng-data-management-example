@@ -10,10 +10,11 @@ import {
   tap,
   withLatestFrom,
 } from "rxjs/operators";
+import { getByPage } from "../../state/entity.selector";
 import { EntityService } from "../../state/entity.service";
 import { defaultPage, defaultPageSize } from "../../state/state.constants";
 import { IMovie, MovieFilters } from "./movie.model";
-import { filterMovies, moviesByPage } from "./movie.selector";
+import { filterMovies, sorByRating } from "./movie.selector";
 
 @Injectable({
   providedIn: "root",
@@ -36,7 +37,7 @@ export class MovieService extends EntityService<IMovie> {
     debounceTime(0),
     filterMovies(),
     withLatestFrom(this.state$),
-    moviesByPage()
+    getByPage()
   );
   public readonly end$ = combineLatest([
     this.moviesByPage$,
@@ -99,7 +100,9 @@ export class MovieService extends EntityService<IMovie> {
   }
 
   private getMovies(): Observable<IMovie[]> {
-    return this.httpClient.get<IMovie[]>("https://api.tvmaze.com/shows");
+    return this.httpClient
+      .get<IMovie[]>("https://api.tvmaze.com/shows")
+      .pipe(map((movies) => movies.sort(sorByRating)));
   }
 
   public setCurrentMovieId(id: number): void {
