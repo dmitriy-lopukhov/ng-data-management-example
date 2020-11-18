@@ -7,5 +7,5 @@ import { ChangeDetectionStrategy, Component } from "@angular/core";
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {
-  title = "data-management-example";
+  title = "the data management example";
 }
