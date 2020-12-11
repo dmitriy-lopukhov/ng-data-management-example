@@ -10,7 +10,6 @@
   justify-content: center;
 }
 .total,
-.actions,
 .search {
   width: 100%;
   display: flex;
@@ -19,6 +18,10 @@
 .container {
   flex-direction: column;
 }
-.btn {
-  @include btn;
+.card-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: center;
 }

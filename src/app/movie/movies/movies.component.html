@@ -1,19 +1,17 @@
 <app-movie-search class="search"></app-movie-search>
 <p class="total">Total: {{ total$ | async }}</p>
-<app-movie-card
-  @movieCardAnimate
-  class="container"
-  *ngFor="let movie of movies$ | async"
-  [movie]="movie"
+<div
+  class="card-list"
+  infiniteScroll
+  [infiniteScrollDistance]="2"
+  [infiniteScrollThrottle]="20"
+  (scrolled)="onScroll()"
 >
-</app-movie-card>
-<div class="actions">
-  <button
-    type="button"
-    class="btn"
-    [hidden]="end$ | async"
-    (click)="loadMore()"
+  <app-movie-card
+    @movieCardAnimate
+    class="container"
+    *ngFor="let movie of movies$ | async"
+    [movie]="movie"
   >
-    Load more...
-  </button>
+  </app-movie-card>
 </div>

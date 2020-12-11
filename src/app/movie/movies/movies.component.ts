@@ -21,10 +21,10 @@ import { takeUntil } from "rxjs/operators";
       state("in", style({ transform: "translateY(0)", opacity: 1 })),
       transition("void => *", [
         style({ transform: "translateY(10%)", opacity: 0 }),
-        animate(500),
+        animate(300),
       ]),
       transition("* => void", [
-        animate(300, style({ transform: "translateY(10%)", opacity: 0 })),
+        animate(200, style({ transform: "translateY(10%)", opacity: 0 })),
       ]),
     ]),
   ],
@@ -32,13 +32,15 @@ import { takeUntil } from "rxjs/operators";
 export class MoviesComponent implements OnDestroy {
   movies$: Observable<IMovie[]>;
   total$: Observable<number>;
-  end$: Observable<boolean>;
+  isEnd = false;
   destroy$ = new Subject();
 
   constructor(private movieService: MovieService) {
     this.movies$ = this.movieService.moviesByPage$;
     this.total$ = this.movieService.total$;
-    this.end$ = this.movieService.end$;
+    this.movieService.end$.pipe(takeUntil(this.destroy$)).subscribe((isEnd) => {
+      this.isEnd = isEnd;
+    });
     this.movieService.loaded$
       .pipe(takeUntil(this.destroy$))
       .subscribe((loaded) => {
@@ -52,7 +54,10 @@ export class MoviesComponent implements OnDestroy {
     this.destroy$.next();
   }
 
-  loadMore(): void {
+  onScroll(): void {
+    if (this.isEnd) {
+      return;
+    }
     this.movieService.loadMore();
   }
 }
