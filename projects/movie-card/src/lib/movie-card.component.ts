@@ -6,7 +6,7 @@ import {
   OnInit,
   Output,
 } from "@angular/core";
-import { IMovie, getGenres } from "shared-core";
+import { IMovie, getGenres } from "projects/shared-core/src/public-api";
 
 @Component({
   selector: "app-movie-card",
