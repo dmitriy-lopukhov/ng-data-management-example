@@ -1,4 +1,3 @@
-/* To learn more about this file see: https://angular.io/config/tsconfig. */
 {
   "compileOnSave": false,
   "compilerOptions": {
@@ -18,7 +17,9 @@
     "module": "es2020",
     "lib": ["es2018", "dom"],
     "paths": {
-      "@app/*": ["src/app/*"]
+      "@app/*": ["src/app/*"],
+      "shared-core": ["dist/shared-core/shared-core", "dist/shared-core"],
+      "movie-card": ["dist/movie-card/movie-card", "dist/movie-card"]
     }
   },
   "angularCompilerOptions": {

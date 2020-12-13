@@ -1,11 +1,12 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  EventEmitter,
   Input,
   OnInit,
+  Output,
 } from "@angular/core";
-import { IMovie } from "@app/core/services/entities/movie/movie.model";
-import { getGenres } from "../movie.utils";
+import { IMovie, getGenres } from "shared-core";
 
 @Component({
   selector: "app-movie-card",
@@ -14,8 +15,9 @@ import { getGenres } from "../movie.utils";
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MovieCardComponent implements OnInit {
-  constructor() {}
   @Input() movie: IMovie | null = null;
+  @Output() clicked = new EventEmitter<IMovie>();
+  constructor() {}
 
   getGenres = getGenres;
 
@@ -23,5 +25,9 @@ export class MovieCardComponent implements OnInit {
 
   getImageUrl(movie: IMovie): string {
     return movie?.image?.medium ? `url(${movie.image.medium})` : "";
+  }
+
+  onClick(movie: IMovie): void {
+    this.clicked.emit(movie);
   }
 }

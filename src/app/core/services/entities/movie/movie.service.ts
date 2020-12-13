@@ -13,7 +13,7 @@ import {
 import { getByPage } from "../../state/entity.selector";
 import { EntityService } from "../../state/entity.service";
 import { defaultPage, defaultPageSize } from "../../state/state.constants";
-import { IMovie, MovieFilters } from "./movie.model";
+import { IMovie, MovieFilters } from "shared-core";
 import { filterMovies, sorByRating } from "./movie.selector";
 
 @Injectable({

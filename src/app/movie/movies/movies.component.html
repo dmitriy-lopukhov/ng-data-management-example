@@ -8,10 +8,10 @@
   (scrolled)="onScroll()"
 >
   <app-movie-card
-    @movieCardAnimate
     class="container"
     *ngFor="let movie of movies$ | async"
     [movie]="movie"
+    (clicked)="onClicked($event)"
   >
   </app-movie-card>
 </div>

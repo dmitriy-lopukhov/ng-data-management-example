@@ -1,13 +1,7 @@
-import {
-  animate,
-  state,
-  style,
-  transition,
-  trigger,
-} from "@angular/animations";
 import { ChangeDetectionStrategy, Component, OnDestroy } from "@angular/core";
-import { IMovie } from "@app/core/services/entities/movie/movie.model";
+import { Router } from "@angular/router";
 import { MovieService } from "@app/core/services/entities/movie/movie.service";
+import { IMovie } from "shared-core";
 import { Observable, Subject } from "rxjs";
 import { takeUntil } from "rxjs/operators";
 
@@ -16,18 +10,6 @@ import { takeUntil } from "rxjs/operators";
   templateUrl: "./movies.component.html",
   styleUrls: ["./movies.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [
-    trigger("movieCardAnimate", [
-      state("in", style({ transform: "translateY(0)", opacity: 1 })),
-      transition("void => *", [
-        style({ transform: "translateY(10%)", opacity: 0 }),
-        animate(300),
-      ]),
-      transition("* => void", [
-        animate(200, style({ transform: "translateY(10%)", opacity: 0 })),
-      ]),
-    ]),
-  ],
 })
 export class MoviesComponent implements OnDestroy {
   movies$: Observable<IMovie[]>;
@@ -35,7 +17,7 @@ export class MoviesComponent implements OnDestroy {
   isEnd = false;
   destroy$ = new Subject();
 
-  constructor(private movieService: MovieService) {
+  constructor(private movieService: MovieService, private router: Router) {
     this.movies$ = this.movieService.moviesByPage$;
     this.total$ = this.movieService.total$;
     this.movieService.end$.pipe(takeUntil(this.destroy$)).subscribe((isEnd) => {
@@ -59,5 +41,9 @@ export class MoviesComponent implements OnDestroy {
       return;
     }
     this.movieService.loadMore();
+  }
+
+  onClicked(movie: IMovie): void {
+    this.router.navigate(["movies", movie.id]);
   }
 }

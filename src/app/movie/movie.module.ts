@@ -4,17 +4,18 @@ import { ReactiveFormsModule } from "@angular/forms";
 
 import { MovieRoutingModule } from "./movie-routing.module";
 import { MoviesComponent } from "./movies/movies.component";
-import { MovieCardComponent } from "./movie-card/movie-card.component";
 import { MovieSearchComponent } from "./movie-search/movie-search.component";
 import { InfiniteScrollModule } from "ngx-infinite-scroll";
+import { MovieCardModule } from "movie-card";
 
 @NgModule({
-  declarations: [MoviesComponent, MovieCardComponent, MovieSearchComponent],
+  declarations: [MoviesComponent, MovieSearchComponent],
   imports: [
     CommonModule,
     MovieRoutingModule,
     ReactiveFormsModule,
     InfiniteScrollModule,
+    MovieCardModule,
   ],
 })
 export class MovieModule {}

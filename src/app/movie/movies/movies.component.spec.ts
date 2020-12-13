@@ -3,10 +3,10 @@ import { ComponentFixture, TestBed, waitForAsync } from "@angular/core/testing";
 import { ReactiveFormsModule } from "@angular/forms";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { RouterTestingModule } from "@angular/router/testing";
-import { IMovie } from "@app/core/services/entities/movie/movie.model";
+import { IMovie } from "shared-core";
 import { MovieService } from "@app/core/services/entities/movie/movie.service";
 import { of } from "rxjs";
-import { MovieCardComponent } from "../movie-card/movie-card.component";
+import { MovieCardComponent } from "movie-card";
 import { MovieSearchComponent } from "../movie-search/movie-search.component";
 
 import { MoviesComponent } from "./movies.component";
@@ -69,7 +69,7 @@ describe("MoviesComponent", () => {
     fixture = TestBed.createComponent(MoviesComponent);
     component = fixture.componentInstance;
     component.movies$ = of(testMovies);
-    component.end$ = of(true);
+    component.isEnd = false;
     component.total$ = of(testMovies.length);
     fixture.detectChanges();
   });

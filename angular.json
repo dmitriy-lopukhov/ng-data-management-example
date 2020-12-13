@@ -120,6 +120,82 @@
           }
         }
       }
+    },
+    "movie-card": {
+      "projectType": "library",
+      "root": "projects/movie-card",
+      "sourceRoot": "projects/movie-card/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "tsConfig": "projects/movie-card/tsconfig.lib.json",
+            "project": "projects/movie-card/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/movie-card/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/movie-card/src/test.ts",
+            "tsConfig": "projects/movie-card/tsconfig.spec.json",
+            "karmaConfig": "projects/movie-card/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/movie-card/tsconfig.lib.json",
+              "projects/movie-card/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**"]
+          }
+        }
+      }
+    },
+    "shared-core": {
+      "projectType": "library",
+      "root": "projects/shared-core",
+      "sourceRoot": "projects/shared-core/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "tsConfig": "projects/shared-core/tsconfig.lib.json",
+            "project": "projects/shared-core/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/shared-core/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/shared-core/src/test.ts",
+            "tsConfig": "projects/shared-core/tsconfig.spec.json",
+            "karmaConfig": "projects/shared-core/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/shared-core/tsconfig.lib.json",
+              "projects/shared-core/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**"]
+          }
+        }
+      }
     }
   },
   "defaultProject": "data-management-example"
