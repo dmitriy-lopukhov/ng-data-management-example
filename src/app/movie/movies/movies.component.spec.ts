@@ -3,10 +3,10 @@ import { ComponentFixture, TestBed, waitForAsync } from "@angular/core/testing";
 import { ReactiveFormsModule } from "@angular/forms";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { RouterTestingModule } from "@angular/router/testing";
-import { IMovie } from "shared-core";
+import { IMovie } from "projects/shared-core/src/public-api";
 import { MovieService } from "@app/core/services/entities/movie/movie.service";
 import { of } from "rxjs";
-import { MovieCardComponent } from "movie-card";
+import { MovieCardComponent } from "projects/movie-card/src/public-api";
 import { MovieSearchComponent } from "../movie-search/movie-search.component";
 
 import { MoviesComponent } from "./movies.component";

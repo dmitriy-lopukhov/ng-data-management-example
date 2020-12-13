@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnDestroy } from "@angular/core";
 import { Router } from "@angular/router";
 import { MovieService } from "@app/core/services/entities/movie/movie.service";
-import { IMovie } from "shared-core";
+import { IMovie } from "projects/shared-core/src/public-api";
 import { Observable, Subject } from "rxjs";
 import { takeUntil } from "rxjs/operators";
 

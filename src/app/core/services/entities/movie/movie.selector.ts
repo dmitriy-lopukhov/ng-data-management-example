@@ -1,6 +1,10 @@
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
-import { IMovie, MovieFilters, Query } from "shared-core";
+import {
+  IMovie,
+  MovieFilters,
+  Query,
+} from "projects/shared-core/src/public-api";
 
 export function filterMovies(): (
   source: Observable<[IMovie[], MovieFilters]>

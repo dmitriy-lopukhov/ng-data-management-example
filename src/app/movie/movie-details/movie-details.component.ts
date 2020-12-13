@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { MovieService } from "@app/core/services/entities/movie/movie.service";
 import { Observable } from "rxjs";
-import { IMovie, getGenres } from "dist/shared";
+import { IMovie, getGenres } from "projects/shared-core/src/public-api";
 
 @Component({
   selector: "app-movie-details",
