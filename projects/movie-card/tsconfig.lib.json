@@ -10,7 +10,10 @@
     "types": [],
     "lib": ["dom", "es2018"],
     "paths": {
-      "shared-core": ["dist/shared-core/shared-core", "dist/shared-core"]
+      "shared-core": [
+        "projects/shared-core/shared-core",
+        "projects/shared-core"
+      ]
     }
   },
   "angularCompilerOptions": {

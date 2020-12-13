@@ -18,8 +18,11 @@
     "lib": ["es2018", "dom"],
     "paths": {
       "@app/*": ["src/app/*"],
-      "shared-core": ["dist/shared-core/shared-core", "dist/shared-core"],
-      "movie-card": ["dist/movie-card/movie-card", "dist/movie-card"]
+      "shared-core": [
+        "projects/shared-core/shared-core",
+        "projects/shared-core"
+      ],
+      "movie-card": ["projects/movie-card/movie-card", "projects/movie-card"]
     }
   },
   "angularCompilerOptions": {
